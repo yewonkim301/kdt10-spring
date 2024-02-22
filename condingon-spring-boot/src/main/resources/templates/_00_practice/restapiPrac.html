@@ -16,7 +16,12 @@
         <span th:text="'이름: ' + ${name}"></span><br>
         <span th:text="'성별: ' + ${gender}"></span><br>
         <span th:text="'생년월일: ' + ${year} + '-' + ${month} + '-' + ${day}"></span><br>
-        <span>관심사: </span><span th:each="h: ${hobby}" th:text="${h} "></span><br>
+        <span>관심사: </span>
+        <span th:each="h, iterStat: ${hobby}">
+            <span th:text="${h}"></span>
+            <span th:if="${!iterStat.last}">, </span>
+        </span>
+        <br>
     </div>
 </body>
 </html>
