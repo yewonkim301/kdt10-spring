@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.timeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- GET PRAC-->
+<!--    <span th:text="'내 이름은 ' + ${name}"></span>-->
+<!--    <br>-->
+<!--    <span th:text="'내 나이는 ' + ${age}"></span>-->
+
+<!-- POST PRAC-->
+    <h3>폼 전송 - 실습</h3>
+    <div>
+        <span th:text="'이름: ' + ${name}"></span><br>
+        <span th:text="'성별: ' + ${gender}"></span><br>
+        <span th:text="'생년월일: ' + ${year} + '-' + ${month} + '-' + ${day}"></span><br>
+        <span>관심사: </span><span th:each="h: ${hobby}" th:text="${h} "></span><br>
+    </div>
+</body>
+</html>
