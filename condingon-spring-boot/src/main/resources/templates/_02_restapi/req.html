@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Rest API</title>
+    <!-- axios cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <h1>=============== GET 요청 =================</h1>
@@ -126,5 +128,209 @@
         <button>Post 전송 (RequestBody O)</button>
     </form>
 </div>
+
+<h1>========== VO 이용 ==========</h1>
+<div style="display:flex">
+    <form action="/vo/res1" method="get" style="margin-right: 20px;">
+        <h3>Get - VO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button>Get 전송</button>
+    </form>
+    <form action="/vo/res2" method="post" style="margin-right: 20px;">
+        <h3>Post - VO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button>Post 전송 (RequestBody X)</button>
+    </form>
+    <form action="/vo/res3" method="post" style="margin-right: 20px;">
+        <h3>Post - VO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button>Post 전송 (RequestBody O)</button>
+    </form>
+</div>
+
+<hr>
+
+<h1>========== DTO 이용 with axios ==========</h1>
+<div style="display:flex">
+    <form id="form_dto1" style="margin-right: 20px;">
+        <h3>Get - DTO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button type="button" onclick="dtoRes1();">Get (일반)</button>
+        <button type="button" onclick="dtoRes2();">Get (DTO)</button>
+    </form>
+    <form id="form_dto2" style="margin-right: 20px;">
+        <h3>Post - DTO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button type="button" onclick="dtoRes3();">Post (일반)</button>
+        <button type="button" onclick="dtoRes4();">Post (DTO) - RequestBody X</button>
+        <button type="button" onclick="dtoRes5();">Post (DTO) - RequestBody O</button>
+    </form>
+</div>
+
+<h1>========== VO 이용 with axios ==========</h1>
+<div style="display:flex">
+    <form id="form_vo1" style="margin-right: 20px;">
+        <h3>Get - VO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button type="button" onclick="voRes1();">Get (일반)</button>
+        <button type="button" onclick="voRes2();">Get (VO)</button>
+    </form>
+    <form id="form_vo2" style="margin-right: 20px;">
+        <h3>Post - VO</h3>
+        이름: <input type="text" name="name"><br>
+        나이: <input type="text" name="age">
+        <br>
+        <button type="button" onclick="voRes3();">Post (일반)</button>
+        <button type="button" onclick="voRes4();">Post (VO) - RequestBody X</button>
+        <button type="button" onclick="voRes5();">Post (VO) - RequestBody O</button>
+    </form>
+</div>
+
+<h1>========== 동적 폼 전송 실습 ==========</h1>
+<h3>폼 전송 - 실습</h3>
+<form id="form_prac">
+    <div>이름 <input type="text" name="name"></div>
+    <div>
+        성별
+        <input type="radio" value="남자" id="man2" name="gender" />남자
+        <input type="radio" value="여자" id="woman2" name="gender" />여자
+    </div>
+    <br />
+    <div>
+        생년월일
+        <select name="year" id="year2">
+            <option th:each="y: ${#numbers.sequence(1990, 2024)}" th:text="${y}"></option>
+        </select>
+        년
+        <select name="month" id="month2">
+            <option th:each="m: ${#numbers.sequence(1, 12)}" th:text="${m}"></option>
+        </select>
+        월
+        <select name="day" id="day2">
+            <option th:each="d: ${#numbers.sequence(1, 31)}" th:text="${d}"></option>
+        </select>
+        일
+    </div>
+    <br />
+    <div>
+        관심사
+        <input type="checkbox" value="여행" name="hobby" id="travel2" />여행
+        <input type="checkbox" value="패션" name="hobby" id="style2" />패션
+        <input type="checkbox" value="음식" name="hobby" id="food2" />음식
+    </div>
+    <button type="button" onclick="pracRes();">전송</button>
+</form>
+
+<script>
+    function dtoRes1() {
+        const form = document.getElementById("form_dto1");
+        axios.get(`/axios/res1?name=${form.name.value}&age=${form.age.value}`)
+        .then((res) => {
+            console.log(res);
+        })
+    }
+
+    function dtoRes2() {
+        const form = document.getElementById("form_dto1");
+        axios.get(`/axios/res2?name=${form.name.value}&age=${form.age.value}`)
+        .then((res) => {
+            console.log(res);
+        })
+    }
+    function dtoRes3() {
+        const form = document.getElementById("form_dto2");
+        axios.post(`/axios/res3`, {name: form.name.value, age: form.age.value})
+        .then((res) => {
+            console.log(res);
+        })
+    }
+
+    function dtoRes4() {
+        const form = document.getElementById("form_dto2");
+        axios.post(`/axios/res4`, {name: form.name.value, age: form.age.value})
+        .then((res) => {
+            console.log(res);
+        })
+    }
+
+    function dtoRes5() {
+        const form = document.getElementById("form_dto2");
+        axios.post(`/axios/res5`, {name: form.name.value, age: form.age.value})
+        .then((res) => {
+            console.log(res);
+        })
+    }
+
+    function voRes1() {
+        const form = document.getElementById("form_vo1");
+        axios
+        .get(`/axios/vo/res1?name=${form.name.value}&age=${form.age.value}`)
+        .then((res) => {
+            console.log(res);
+        });
+    }
+
+    function voRes2() {
+        const form = document.getElementById("form_vo1");
+        axios
+        .get(`/axios/vo/res2?name=${form.name.value}&age=${form.age.value}`)
+        .then((res) => {
+            console.log(res);
+        });
+    }
+
+    function voRes3() {
+        const form = document.getElementById("form_vo2");
+        axios
+        .post(`/axios/vo/res3`, { name: form.name.value, age: form.age.value })
+        .then((res) => {
+            console.log(res);
+        });
+    }
+
+    function voRes4() {
+        const form = document.getElementById("form_vo2");
+        axios
+        .post(`/axios/vo/res4`, { name: form.name.value, age: form.age.value })
+        .then((res) => {
+            console.log(res);
+        });
+    }
+
+    function voRes5() {
+        const form = document.getElementById("form_vo2");
+        axios
+        .post(`/axios/vo/res5`, { name: form.name.value, age: form.age.value })
+        .then((res) => {
+            console.log(res);
+        });
+    }
+
+    function pracRes() {
+        const form = document.getElementById("form_prac");
+        axios
+        .post(`/axios/prac`,
+        { name: form.name.value,
+          gender: form.name.value,
+          birthday: `${form.year.value}-${form.month.value}-${form.day.value}`,
+          hobby: form.hobby.value
+        })
+        .then((res) => {
+            console.log(res.data);
+        });
+    }
+</script>
 </body>
 </html>
