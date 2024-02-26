@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// 공통적인 경로를 사용할 때는 가장 위에
+// @RequestMapping("/공통경로") 적어주면 됨
+
 @Controller
 public class BoardController {
     @Autowired
