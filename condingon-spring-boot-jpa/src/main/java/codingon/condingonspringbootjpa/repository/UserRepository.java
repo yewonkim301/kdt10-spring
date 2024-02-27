@@ -36,6 +36,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     Optional<UserEntity> findById(int id);
 
+
     // @Query 어노테이션
     // - JpaRepository 인터페이스에 내장된 메소드만으로 해결이 안되는 경우, raw query 작성 가능
     // - sql 문이 조금 다르다!

@@ -3,11 +3,13 @@ package codingon.condingonspringbootjpa.service;
 import codingon.condingonspringbootjpa.dto.UserDTO;
 import codingon.condingonspringbootjpa.entity.UserEntity;
 import codingon.condingonspringbootjpa.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -44,4 +46,36 @@ public class UserService {
         // save 를 했을 때 반환되는 객체는 Entity 객체
         return newUser.getName();
     }
+
+    public boolean checkUser(String name) {
+        return userRepository.existsByName(name);
+    }
+
+    public List<UserEntity> findUser(String name) {
+        return userRepository.findByName(name);
+    }
+
+    public List<UserEntity> findUserAll(String name, String nickname) {
+        return userRepository.findByNameOrNickname(name, nickname);
+    }
+
+    // 해설
+    /*
+    public String searchId(int id) {
+        Optional<UserEntity> result = userRepository.findById(id);
+
+        // get() : Optional 내부에 담긴 객체 반환
+        // - 만약 null 이라면 NoSuchElementException 발생
+        // isPresent(): 객체의 여부를 boolean 값으로 반환
+        // orElse() : 있으면 반환하고 없으면 다른 값 반환 (() 있는 설정된 값)
+        // -orElse() : Optional.orElse();
+        //  userRepository.findById(id).orElseThrow(() -> new RuntimeException("user dosent't exist"));
+
+        if(result.isPresent()) {
+            return result.get().getName();
+        } else {
+            return "no user";
+        }
+    }
+    */
 }
